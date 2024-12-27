@@ -1,0 +1,20 @@
+Tricks I learned while using HackerRank:
+
+--- print(i, end="") // print without a new line
+
+--- print(*range(1, n + 1), sep="") 
+// *range  => unpack the elements and return them as multiple arguments
+// sep=""  => so the elemets don't be separated by a space
+
+--- textwrap.wrap() is a function in Python's textwrap module used to split a string into a list of lines, with each line having a specified maximum width.
+EX: 
+import textwrap
+textwrap.wrap(text, width=20)
+
+----
+df.iloc : index-based selection
+df.loc : label-based selection
+
+When choosing or transitioning between loc and iloc, there is one "gotcha" worth keeping in mind, which is that the two methods use slightly different indexing schemes.
+
+iloc uses the Python stdlib indexing scheme, where the first element of the range is included and the last one excluded. So 0:10 will select entries 0,...,9. loc, meanwhile, indexes inclusively. So 0:10 will select entries 0,...,10

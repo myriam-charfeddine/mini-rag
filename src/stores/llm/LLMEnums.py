@@ -13,4 +13,9 @@ class OpenAIEnum(Enum):
     USER = "user",
     ASSISTANT = "assistant"
 
+class CohereEnum(Enum):
+    SYSTEM = "SYSTEM",
+    USER = "USER",
+    ASSISTANT = "CHATBOT"
+
 

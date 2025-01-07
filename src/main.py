@@ -5,6 +5,8 @@ from routes import base, data
 from motor.motor_asyncio import AsyncIOMotorClient
 from helpers.config import get_settings
 from contextlib import asynccontextmanager
+from .stores.llm.LLMProviderFactory import LLMProviderFactory
+
 
 
 @asynccontextmanager
@@ -14,8 +16,19 @@ async def lifespan(app: FastAPI):
     app.mongo_conn = AsyncIOMotorClient(settings.MONGODB_URL)  # Connect to MongoDB  (we associated the connection to the app : app.mongo_db (.mongo_db is not an already existing attribute))
     app.db_client = app.mongo_conn[settings.MONGODB_DATABASE]  # Access the database (we associated the db to the app : app.db_client (.db_client is not an already existing attribute))
     print("Database connected.")
+    
+    llm_provider_factory = LLMProviderFactory(settings)
 
-    yield  # Pass control to the app
+    #defining the app attribute : generation client
+    app.generation_client = llm_provider_factory.create(provider = settings.GENERATION_BACKEND)
+    app.generation_client.set_generation_model(model_id = settings.GENERATION_MODEL_ID)
+
+    #defining the app attribute : embedding client
+    app.embedding_client = llm_provider_factory.create(provider = settings.EMBEDDING_BACKEND)
+    app.embedding_client.set_embedding_model(model_id=settings.EMBEDDING_MODEL_ID,
+                                             embedding_size=settings.EMBEDDING_MODEL_SIZE)
+
+    yield  # Pass control to the app...
 
     #shutdown the db once app closed
     app.mongo_conn.close()

@@ -18,4 +18,11 @@ class CohereEnum(Enum):
     USER = "USER",
     ASSISTANT = "CHATBOT"
 
+    DOCUMENT = "search_document"
+    QUERY = "search_query"
+
+class DocumentTypeEnum(Enum):
+    DOCUMENT = "document"
+    QUERY = "query"
+
 

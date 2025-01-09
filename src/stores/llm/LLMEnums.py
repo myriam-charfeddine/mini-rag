@@ -5,7 +5,7 @@ class LLMEnums(Enum):
     OPENAI = "OPENAI"
     COHERE = "COHERE"
 
-    GEMINI = "GEMINI"
+    GOOGLE = "GOOGLE"
     LLAMA = "LLAMA"
 
 class OpenAIEnum(Enum):
@@ -20,6 +20,11 @@ class CohereEnum(Enum):
 
     DOCUMENT = "search_document"
     QUERY = "search_query"
+
+class GoogleEnum(Enum):
+    SYSTEM = "system",
+    USER = "user",
+    ASSISTANT = "model"
 
 class DocumentTypeEnum(Enum):
     DOCUMENT = "document"

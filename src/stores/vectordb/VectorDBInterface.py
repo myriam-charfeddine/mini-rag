@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List
 
 class VectorDBInterface(ABC):
     
@@ -32,13 +33,13 @@ class VectorDBInterface(ABC):
         pass
 
     @abstractmethod
-    def insert_one(self, collection_name: str, text: str, vector: list,
+    def insert_one(self, collection_name: str, text: str, vector: List,
                    metadata: dict = None, record_id: str = None):
         pass
 
 
     @abstractmethod
-    def insert_manye(self, collection_name: str, texts: list, vectors: list,
+    def insert_many(self, collection_name: str, texts: list, vectors: list,
                    metadata: dict = None, record_ids: str = None,
                    batch_size: int = 50):
         pass

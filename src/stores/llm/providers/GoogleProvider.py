@@ -23,6 +23,7 @@ class GoogleProvider(LLMInterface):
 
         genai.configure(api_key=self.api_key)
 
+        self.enums = GoogleEnum
         self.logger = logging.getLogger(__name__)
 
     def set_generation_model(self, model_id: str):
@@ -50,6 +51,10 @@ class GoogleProvider(LLMInterface):
                                         max_output_tokens = max_output_tokens,
                                         temperature = temperature,
                                     ))
+        
+        # chat_history.append(
+        #     self.construct_prompt(prompt=prompt, role=GoogleEnum.USER.value)
+        # )
         
         response = chat.start_chat(history = chat_history).send_message(self.process_text(prompt))
         

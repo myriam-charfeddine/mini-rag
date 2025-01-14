@@ -14,15 +14,15 @@ class OpenAIEnum(Enum):
     ASSISTANT = "assistant"
 
 class CohereEnum(Enum):
-    SYSTEM = "SYSTEM",
-    USER = "USER",
+    SYSTEM = "SYSTEM"
+    USER = "USER"
     ASSISTANT = "CHATBOT"
 
     DOCUMENT = "search_document"
     QUERY = "search_query"
 
 class GoogleEnum(Enum):
-    USER = "user",
+    USER = "user"
     ASSISTANT = "model"
 
 class DocumentTypeEnum(Enum):

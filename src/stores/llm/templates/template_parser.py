@@ -20,11 +20,35 @@ class TemplateParser:
             self.language = self.default_language
 
     def get(self, group: str, key: str, vars: dict = {}):
+
         # group == file were the prompts templates are located (rag.py file in our case)
         # key == the concerned prompt (e.g: system_prompt, document_prompt, ...)
-
         if not group or not key:
             return None
+
+        group_path = os.path.join(self.current_path, "locales", self.language, f"{group}.py")
+        target_language = self.language
+
+        if not os.path.exists(group_path):
+            group_path = os.path.join(self.current_path, "locales", self.default_language, f"{group}.py")
+            target_language = self.default_language
+
+        if not os.path.exists(group_path):
+            return None
+
+        # import the `group` module
+        module = __import__(f"stores.llm.templates.locales.{target_language}.{group}", fromlist=[group])
+
+        if not module:
+            return None
+        
+        # import the `key` attribute from the module
+        key_attribute = getattr(module, key)
+
+        return key_attribute.substitute(vars) # replace all the $variables in the prompt by vars
+    
+
+        
 
         
     

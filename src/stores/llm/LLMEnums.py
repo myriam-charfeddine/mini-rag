@@ -22,7 +22,6 @@ class CohereEnum(Enum):
     QUERY = "search_query"
 
 class GoogleEnum(Enum):
-    SYSTEM = "system",
     USER = "user",
     ASSISTANT = "model"
 

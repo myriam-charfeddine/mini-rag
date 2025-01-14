@@ -76,18 +76,32 @@ class NLPController(BaseController):
             return False
         
         # semantic search
-        result = self.vectordb_client.search_by_vector(
+        results = self.vectordb_client.search_by_vector(
             collection_name=collection_name,
             vector=vector, 
             limit=limit
         )
         
-        if not result:
+        if not results:
             return False
         
-        return json.loads(
-            json.dumps(result, default=lambda x: x.__dict__)
-                        )
+        return results
+    
+    def answer_rag_question(self, project: Project, query: str, limit: int = 10):
+
+        # retrieve related documents
+        retrieved_documents = self.search_vector_db_collection(
+            project=project,
+            text=query,
+            limit=limit
+        )
+
+        if not retrieved_documents or len(retrieved_documents):
+            return None
+        
+        # construct LLM prompt
+        system_prompt = ""
+
 
 
 
